@@ -20,22 +20,6 @@ TextureGAN is a generative adversarial network conditioned on sketch and colors/
 - Pytorch 0.2 (torch and torchvision)
 - Numpy scikit-image matplotlib etc.
 
-### Getting Started
-- Clone this repo
-```bash
-git clone git@github.com:janesjanes/texturegan.git
-cd texturegan
-```
-- Prepare Datasets
-Download the training data:
-```bash
-wget https://s3-us-west-2.amazonaws.com/texturegan/training_handbag.tar.gz
-tar -xvcf training_handbag.tar.gz
-```
-For shoe: https://s3-us-west-2.amazonaws.com/texturegan/training_shoe.tar.gz
-
-For cloth: https://s3-us-west-2.amazonaws.com/texturegan/training_cloth.tar.gz
-
 - Train the model from scratch. See python main.py --help for training options. Example arguments (see the paper for the exact parameters value):
 ```bash
 python main.py --display_port 7779 --gpu 3 --model texturegan --feature_weight 5e3 --pixel_weight_ab 1e4 
@@ -43,22 +27,6 @@ python main.py --display_port 7779 --gpu 3 --model texturegan --feature_weight 5
 --data_path [training_handbags_pretrain/] --learning_rate_D_local  1e-4 --local_texture_size 50 --patch_size_min 20 
 --patch_size_max 50 --num_input_texture_patch 1 --visualize_every 5 --num_local_texture_patch 5
 ```
-Models will be saved to `./save_dir`  
-
-See more training details in section Train
-
-You can also load our pretrained models in section Download Models.
-
-To view results and losses as the model trains, start a visdom server for the ‘display_port’ 
-```bash
-python -m visdom.server -port 7779
-```
-
-
-Test the model
-
-- See our Ipython Notebook Test_script.ipynb
-
 ## Train
 TextureGAN proposes a two-stage training scheme. 
 - The first training state is ground-truth pre-training. We extract input edge and texture patch from the same ground-truth image. Here, we show how to train the ground-truth pretrained model using a combination of pixel loss, color loss, feature loss, and adverserial loss. 
@@ -85,19 +53,8 @@ The datasets we used for generating sketch and image pair in this paper are coll
 The dataset is split into train and test set.
 - Shoes dataset: ## training images from [UT Zappos50K dataset](http://vision.cs.utexas.edu/projects/finegrained/utzap50k/). 
 - Hangbags dataset: ## Amazon Handbag images from [iGAN project](https://github.com/junyanz/iGAN). 
-- Deep Fashion Dataset: ## clothes images from [Deep Fashion Dataset](http://mmlab.ie.cuhk.edu.hk/projects/DeepFashion.html). 
+- Deep Fashion Dataset: ## clothes images from [Deep Fashion Dataset](http://mmlab.ie.cuhk.edu.hk/p
 
-Edges are computed by [HED](https://github.com/s9xie/hed) edge detector + post-processing. [[Citation](datasets/bibtex/handbags.tex)]
-
-The datasets we used for inputting texture patches are DTD Dataset and leather dataset we collected from the internet.
-- DTD Dataset: 
-- Leather Dataset: 
-
-## Download Models
-Pre-trained models 
-- <a href='https://s3-us-west-2.amazonaws.com/texturegan/textureD_final_allloss_shoes_200.pth' >For shoe model</a>  
-- <a href='https://s3-us-west-2.amazonaws.com/texturegan/textureD_final_allloss_handbag_3300.pth' > For handbag model </a>
-- <a href=https://s3-us-west-2.amazonaws.com/texturegan/final_cloth_finetune.pth'> For clothe model </a>
 
 ## Citation
 If you find it this code useful for your research, please cite: 
